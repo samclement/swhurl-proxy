@@ -1,4 +1,2 @@
-node_modules
-certs/*
-!certs/.gitkeep
-rules.json
+caddy/*
+!caddy/.gitkeep

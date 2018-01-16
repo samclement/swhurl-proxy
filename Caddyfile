@@ -1,0 +1,59 @@
+swhurl.com www.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  proxy / website:3000 {
+    transparent
+  }
+}
+
+dev.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+  proxy / website-dev:3000 {
+    transparent  
+  } 
+}
+
+deploy.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  proxy / deploy:3000 {
+    transparent  
+  } 
+}
+
+drone.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  proxy / drone-server:8000 {
+    transparent  
+  } 
+}
+
+prometheus.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+  proxy / prometheus:9090 {
+    transparent
+  }
+}
+
+alert.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+  proxy / alertmanager:9093 {
+    transparent  
+  } 
+}
+
+grafana.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+  proxy / grafana:3000 {
+    transparent  
+  } 
+}
