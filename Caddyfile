@@ -52,7 +52,6 @@ alert.swhurl.com {
 grafana.swhurl.com {
   tls sam@swhurl.com
   gzip
-  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
   proxy / grafana:3000 {
     transparent  
   } 
