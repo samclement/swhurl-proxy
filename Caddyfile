@@ -7,14 +7,14 @@ swhurl.com www.swhurl.com {
   }
 }
 
-dev.swhurl.com {
+staging.swhurl.com staging.www.swhurl.com {
   tls sam@swhurl.com
   gzip
   prometheus 0.0.0.0:9180
   basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
-  proxy / website-dev:3000 {
-    transparent  
-  } 
+  proxy / website-staging:3000 {
+    transparent
+  }
 }
 
 deploy.swhurl.com {
@@ -27,10 +27,15 @@ deploy.swhurl.com {
 }
 
 drone.swhurl.com {
-  tls sam@swhurl.com
-  gzip
+  tls sam@swhurl.com {
+    alpn http/1.1
+  }
+  gzip {
+    not /stream/
+  }
   prometheus 0.0.0.0:9180
   proxy / drone-server:8000 {
+    websocket
     transparent  
   } 
 }
@@ -56,10 +61,15 @@ alert.swhurl.com {
 }
 
 grafana.swhurl.com {
-  tls sam@swhurl.com
-  gzip
+  tls sam@swhurl.com {
+    alpn http/1.1
+  }
+  gzip {
+    not /stream/
+  }
   prometheus 0.0.0.0:9180
   proxy / grafana:3000 {
     transparent  
+    websocket
   } 
 }
