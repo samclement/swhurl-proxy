@@ -5,6 +5,8 @@ swhurl.com www.swhurl.com {
   proxy / website:3000 {
     transparent
   }
+  rewrite /favicon.ico /static/favicon.ico
+  rewrite /robots.txt /static/robots.txt
 }
 
 staging.swhurl.com staging.www.swhurl.com {
@@ -15,6 +17,8 @@ staging.swhurl.com staging.www.swhurl.com {
   proxy / website-staging:3000 {
     transparent
   }
+  rewrite /favicon.ico /static/favicon.ico
+  rewrite /robots.txt /static/robots.txt
 }
 
 deploy.swhurl.com {
