@@ -5,6 +5,7 @@ swhurl.com www.swhurl.com {
   proxy / website:3000 {
     transparent
   }
+  internal /metrics
   rewrite /favicon.ico /static/favicon.ico
   rewrite /robots.txt /static/robots.txt
 }
@@ -17,15 +18,34 @@ staging.swhurl.com staging.www.swhurl.com {
   proxy / website-staging:3000 {
     transparent
   }
+  internal /metrics
   rewrite /favicon.ico /static/favicon.ico
   rewrite /robots.txt /static/robots.txt
 }
 
-deploy.swhurl.com {
+registry.swhurl.com {
+  tls sam@swhurl.com
+  prometheus 0.0.0.0:9180
+  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+  proxy / registry:5000 {
+    transparent  
+  } 
+  header / Docker-Distribution-Api-Version "registry/2.0"
+}
+
+id.swhurl.com {  
   tls sam@swhurl.com
   gzip
-  prometheus 0.0.0.0:9180
-  proxy / deploy:3000 {
+  proxy / freeipa:80 {
+    transparent  
+  } 
+}
+
+jaeger.swhurl.com {
+  tls sam@swhurl.com
+  gzip
+  basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+  proxy / jaeger:16686 {
     transparent  
   } 
 }
